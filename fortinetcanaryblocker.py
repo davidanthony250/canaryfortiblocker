@@ -167,7 +167,10 @@ while True:
 					print("Added temporary address to PYTHON_GROUP." + str(response))
 					break	
 		fgt.logout()
-		timer=0
+		timer_s=0
+		timer_m=0
+		timer_h=0
+		timer_d=0
 		#print(address_ip_list) just testing this
 		#reads the last line of logfile
 		print("Scanner running! Checking every " + str(check_duration) +" seconds.")
@@ -175,8 +178,7 @@ while True:
 			try:
 				last_one = read_last_line("/var/tmp/opencanary.log")
 				if last_one_old == last_one:
-					
-					print("\rCurrent runtime " + str(timer) +" seconds. Press ctrl+c to stop." , end="")
+					print("\rCurrent runtime " + str(timer_d) + "d " + str(timer_h) + "h " + str(timer_m) + "m " + str(timer_s) + "s Press ctrl+c to stop." , end="")
 				else:
 					#check to see if last line source IP is in address_ip_list, if not, add last line IP to address_ip_list
 					log_ip_with_text_raw = re.search("\"src_host\":\s\"\d(\d)?(\d)?\.\d(\d)?(\d)?\.\d(\d)?(\d)?\.\d(\d)?(\d)?", last_one)
@@ -245,7 +247,16 @@ while True:
 							print("\nNew IP blocked - " + str(log_ip) + " " + time.strftime("%m-%d-%Y %I:%M %p %Z", time.localtime(current_time)))
 						fgt.logout
 				time.sleep(check_duration)
-				timer += check_duration
+						timer_s += check_duration
+				if timer_s == 60:
+					timer_m += 1
+					timer_s = 0
+				if timer_m == 60:
+					timer_h += 1
+					timer_m = 0
+				if timer_h == 24:
+					timer_d += 1
+					timer_h =0
 			except KeyboardInterrupt:
 				break																	
 			
