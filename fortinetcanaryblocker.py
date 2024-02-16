@@ -208,6 +208,7 @@ while True:
 							address1 += 1
 						if log_ip in address_ip_list:
 							print("IP detected, but already in ban list. Be sure to add PYTHON_GROUP to firewall ban rules!")
+							break
 						else:
 							#clears PYTHON_GROUP, neccessary in order to delete pythonaddresses
 							data = {"name": "tttemporaryaddress",
