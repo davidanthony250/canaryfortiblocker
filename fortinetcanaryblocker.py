@@ -3,7 +3,7 @@
 import getpass
 import re
 from pprint import pprint
-from fortigate_api import FortigateAPI
+from fortigate_api import FortiGateAPI
 import time
 #import logging
 #logging.getLogger().setLevel(logging.DEBUG)
@@ -36,7 +36,7 @@ while True:
 			exit()
 		print("Please enter your password")
 		PASSWORD = getpass.getpass()
-		fgt = FortigateAPI(host=HOST, username=USERNAME, password=PASSWORD, port=PORT, vdom=VDOM)
+		fgt = FortiGateAPI(host=HOST, username=USERNAME, password=PASSWORD, port=PORT, vdom=VDOM)
 		fgt.login()
 		fgt.logout()
 		break
